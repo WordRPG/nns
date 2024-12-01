@@ -10,5 +10,6 @@ npm install $@
 # --- link project folder --- # 
 echo "--- LINKING PROJECT FOLDER" 
 ln -s ../ node_modules/$ 
+ln -s ../ node_modules/nns-lite 
 
 echo "Done."

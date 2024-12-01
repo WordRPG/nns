@@ -1,0 +1,30 @@
+{
+  "name": "nns-lite",
+  "type": "module",
+  "description": "An experimental IVF-based nearest neighbor search utility library for Node.js (works in the browser).",
+  "main": "index.js",
+  "scripts": {
+    "test": "node bin/test.js"
+  },
+  "version": "0.0.0",
+  "bin": {
+    "nns-lite": "bin/test.js"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WordRPG/nns-lite.git"
+  },
+  "author": "LJ S.A. and K.G. T",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WordRPG/nns-lite/issues"
+  },
+  "homepage": "https://github.com/WordRPG/nns-lite#readme",
+  "dependencies": {
+    "@japa/runner": "^3.1.4",
+    "chance": "^1.1.12"
+  }
+}

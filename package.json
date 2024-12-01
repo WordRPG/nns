@@ -24,7 +24,9 @@
   },
   "homepage": "https://github.com/WordRPG/nns-lite#readme",
   "dependencies": {
+    "@japa/assert": "^3.0.0",
     "@japa/runner": "^3.1.4",
-    "chance": "^1.1.12"
+    "chance": "^1.1.12",
+    "tabulate": "^1.0.0"
   }
 }

@@ -15,7 +15,7 @@ An experimental IVF-based nearest neighbor search utility library for Node.js
 
 1. Download `Sift` benchmark datasets. 
     - Download `Sift` datasets from `irisa.fr` (use `wget`)
-        - http://corpus-texmex.irisa.fr/
+        - http://corpus-texmex.irisa.fr  
     - Create `data/datasets/sift`.
     - Extract the `.tar.gz` files to `data/datasets/sift`.
 

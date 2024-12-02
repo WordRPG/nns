@@ -54,9 +54,19 @@ test.group('helpers', () => {
   })
 
   
-   test("encodeFloatArrayToBytes()", ({ assert }) => {	
+  test("encodeFloatArrayToBytes()", ({ assert }) => {	
    	const bytes = helpers.encodeFloatArrayToBytes([1.0, 2.0, 3.0])
    	const floatArray = helpers.decodeBytesToFloatArray(bytes)
    	assert.deepEqual(floatArray,  [1.0, 2.0, 3.0])
-   })
+  })
+
+  test("encodeIntegerToBytes()", ({ assert }) => {
+	const bytes = helpers.encodeIntegerToBytes(1952805748)
+	assert.equal(bytes, "test")
+  })
+
+  test("decodeBytesToInteger()", ({ assert }) => {
+  	const bytes = helpers.decodeBytesToInteger("test")
+ 	assert.equal(bytes, 1952805748)
+  })
 })

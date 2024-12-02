@@ -86,3 +86,32 @@ export function flatten(array) {
  	const items = Array.from(itemsF32)	
  	return items
  }
+
+
+/**
+  * Convert Integer to Bytes
+  * Source: https://stackoverflow.com/a/37863115/24886258 
+ */
+ export function encodeIntegerToBytes(num) {
+     var ascii='';
+     for (let i=3;i>=0;i--) {
+         ascii+=String.fromCharCode((num>>(8*i))&255);
+     }
+     return ascii;
+ }
+
+
+ /**
+   * Convert Bytes to Integer
+   * Source: https://stackoverflow.com/a/37863115/24886258 
+  */
+  export function decodeBytesToInteger(numString) {
+  	 var result=0;
+ 	 for (let i=3;i>=0;i--) {
+  	    result+=numString.charCodeAt(3-i)<<(8*i);
+ 	 }
+  	 return result;    
+  }
+ 
+  
+ 

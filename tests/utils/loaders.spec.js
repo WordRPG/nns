@@ -10,3 +10,12 @@ test.group('BA2D', () => {
 		assert.deepEqual(loadedPoints, points)
  	})
 })
+
+test.group('FVecs', () => {
+	test("must save and load points", ({ assert }) => {
+		const points = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] 
+		FVecs.save("./temp/points.fvecs", points)
+		const loadedPoints = FVecs.load("./temp/points.fvecs") 
+		assert.deepEqual(loadedPoints, points)
+ 	})
+})

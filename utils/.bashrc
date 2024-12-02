@@ -16,7 +16,7 @@ function run() {
 # --- shortcut for quickly commiting to github --- # 
 function qcp() {
 	git add .
-	git commit -m $1
+	git commit -m "$1"
 	git push -u origin main
 }
 

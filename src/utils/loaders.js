@@ -9,11 +9,13 @@ export class BA2D
     /**
      * Loads a BA2D file into an array.
      */
-    static load(filePath, dims, { batchSize = 200000, onLoadPoints = null }) {
+    static load(filePath, dims, { batchSize = 200000, onLoadPoints = null } = {}) {
 		const contents = fs.readFileSync(filePath)
 		let subArrays = []
 		const subArraySize = dims * 4
 		const batchSizeBytes = subArraySize * batchSize
+		const vectorCount = contents.length / subArraySize
+		batchSize = Math.min(batchSize, vectorCount)
 		let count = 0
 		for(let i = 0; i < contents.length; i += batchSizeBytes) {
 			const subArrayBytes = contents.slice(i, i + batchSizeBytes) 
@@ -29,7 +31,7 @@ export class BA2D
     /** 
      * Saves a 2D array into a BA2D file.
      */
-    static save(filePath, array, dims, { batchSize = 250000, onSavePoints = null }) {
+    static save(filePath, array, dims, { batchSize = 250000, onSavePoints = null } = {}) {
 		let buffer = []
 		if(fs.existsSync(filePath)) {
 			fs.unlinkSync(filePath)

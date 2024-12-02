@@ -29,14 +29,11 @@
  			id : this.id, 
  			value : helpers.encodeFloatArrayToBase64(this.value)
  		}
- 		return JSON.stringify(data)
+ 		return data
  	}
 
- 	static deserialize(json) {
- 		const data = JSON.parse(json)
+ 	static deserialize(data) {
  		data.value = helpers.decodeBase64ToFloatArray(data.value) 
- 		this.id = data.id 
- 		this.value = data.value
 		const point = new Point(data.id, data.value)
 		return point
  	}

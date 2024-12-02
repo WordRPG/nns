@@ -28,11 +28,17 @@ test.group('Point', () => {
 
   test('serialize()', ({ assert }) => {
 	const point = new Point(1, [1, 2, 3])
-	assert.equal(point.serialize(), `{"id":1,"value":"AACAPwAAAEAAAEBA"}`)
+	assert.deepEqual(point.serialize(), { 
+		id: 1,
+		value :"AACAPwAAAEAAAEBA"
+	})
   })
 
   test('deserialize()', ({ assert }) => {
-  	const serialized = `{"id":1,"value":"AACAPwAAAEAAAEBA"}`
+  	const serialized = { 
+  		id : 1, 
+  		value : "AACAPwAAAEAAAEBA" 
+  	}
   	const point = Point.deserialize(serialized)
   	assert.equal(point.id, 1)
   	assert.deepEqual(point.value, [1, 2, 3])

@@ -65,7 +65,7 @@ export function flatten(array) {
 
 
 /**
- * Encode float array to byyes.
+ * Encode float array to bytes.
  */
  export function encodeFloatArrayToBytes(floatArray) {
 	const f32a          = new Float32Array(floatArray)
@@ -87,5 +87,138 @@ export function flatten(array) {
  	return items
  }
 
+
+/**
+ * Encode int array to bytes.
+ */
+export function encodeIntArrayToBytes(floatArray) {
+	const i32a          = new Int32Array(floatArray)
+	const bytes         = new Uint8Array(i32a.buffer)
+	return bytes
+}
+
+ 
+/**
+  * Decode byte array to int array.
+  */
+export function decodeBytesToIntArray(bytes) {
+    const itemsI32     = new Int32Array(
+ 	    bytes.buffer, 
+ 	    bytes.byteOffset, 
+ 	    bytes.byteLength / Float32Array.BYTES_PER_ELEMENT
+ 	)
+ 	const items = Array.from(itemsI32)	
+ 	return items
+}
+
+
+/**
+  * Encode float array to base64.
+  */
+export function encodeFloatArrayToBase64(floatArray) {
+      // --- create an ArrayBuffer and a DataView to write float values
+      const buffer = new ArrayBuffer(floatArray.length * 4); // 4 bytes per float (Float32)
+      const dataView = new DataView(buffer);
+      
+      // --- write the float array into the ArrayBuffer as Float32
+      for (let i = 0; i < floatArray.length; i++) {
+        dataView.setFloat32(i * 4, floatArray[i], true); // true for little-endian
+      }
+      
+      // --- convert the ArrayBuffer to a byte array
+      const byteArray = new Uint8Array(buffer);
+      
+      // --- convert the byte array to a base64 string
+      let binaryString = '';
+      for (let i = 0; i < byteArray.length; i++) {
+        binaryString += String.fromCharCode(byteArray[i]);
+      }
+      
+      // --- return the base64 encoded string
+	  return btoa(binaryString);
+ }	
+
+/**
+ * Decode float array to base64.
+ */
+export function decodeBase64ToFloatArray(base64) {
+	 // --- decode base64 string to binary data (a string of bytes)
+     const binaryString = atob(base64);
+		  
+	 // --- create a typed array from the binary string
+	 const byteArray = new Uint8Array(binaryString.length);
+	  
+	 // --- copy binary string data to byteArray
+	 for (let i = 0; i < binaryString.length; i++) {
+	   byteArray[i] = binaryString.charCodeAt(i);
+	 }
+	  
+	 // --c create a DataView to interpret the byte array as a float array
+	 const floatArray = [];
+	 const dataView = new DataView(byteArray.buffer);
+		  
+	 // --- read 4-byte floats (Float32) from the DataView
+	 for (let i = 0; i < byteArray.length; i += 4) {
+	    floatArray.push(dataView.getFloat32(i, true)); // true for little-endian
+     }
+	  
+     return floatArray; 
+}
+
+
+/**
+  * Encode int array to base64.
+  */
+export function encodeIntArrayToBase64(intArray) {
+      // --- create an ArrayBuffer and a DataView to write float values
+      const buffer = new ArrayBuffer(intArray.length * 4); // 4 bytes per float (Float32)
+      const dataView = new DataView(buffer);
+      
+      // --- write the float array into the ArrayBuffer as Float32
+      for (let i = 0; i < intArray.length; i++) {
+        dataView.setInt32(i * 4, intArray[i], true); // true for little-endian
+      }
+      
+      // --- convert the ArrayBuffer to a byte array
+      const byteArray = new Uint8Array(buffer);
+      
+      // --- convert the byte array to a base64 string
+      let binaryString = '';
+      for (let i = 0; i < byteArray.length; i++) {
+        binaryString += String.fromCharCode(byteArray[i]);
+      }
+      
+      // --- return the base64 encoded string
+	  return btoa(binaryString);
+ }	
+
+/**
+ * Decode base64 to float array.
+ */
+export function decodeBase64ToIntArray(base64) {
+	 // --- decode base64 string to binary data (a string of bytes)
+     const binaryString = atob(base64);
+		  
+	 // --- create a typed array from the binary string
+	 const byteArray = new Uint8Array(binaryString.length);
+	  
+	 // --- copy binary string data to byteArray
+	 for (let i = 0; i < binaryString.length; i++) {
+	   byteArray[i] = binaryString.charCodeAt(i);
+	 }
+	  
+	 // --c create a DataView to interpret the byte array as a float array
+	 const floatArray = [];
+	 const dataView = new DataView(byteArray.buffer);
+		  
+	 // --- read 4-byte floats (Float32) from the DataView
+	 for (let i = 0; i < byteArray.length; i += 4) {
+	    floatArray.push(dataView.getInt32(i, true)); // true for little-endian
+     }
+	  
+     return floatArray; 
+}
+
+ 
 
 

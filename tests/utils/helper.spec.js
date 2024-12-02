@@ -54,9 +54,43 @@ test.group('helpers', () => {
   })
 
   
-  test("encodeFloatArrayToBytes()", ({ assert }) => {	
+  test("decodeBytesToFloatArray()", ({ assert }) => {	
    	const bytes = helpers.encodeFloatArrayToBytes([1.0, 2.0, 3.0])
    	const floatArray = helpers.decodeBytesToFloatArray(bytes)
    	assert.deepEqual(floatArray,  [1.0, 2.0, 3.0])
   })
+ 
+  test("encodeIntArrayToBytes()", ({ assert }) => {	
+  	const bytes = helpers.encodeIntArrayToBytes([1, 2, 3])
+  	const floatArray = helpers.decodeBytesToIntArray(bytes)
+  	assert.deepEqual(floatArray,  [1, 2, 3])
+  })
+
+  
+  test("decodeBytesToIntArray()", ({ assert }) => {	
+   	const bytes = helpers.encodeIntArrayToBytes([1.0, 2.0, 3.0])
+   	const floatArray = helpers.decodeBytesToIntArray(bytes)
+   	assert.deepEqual(floatArray,  [1, 2, 3])
+  })
+
+  test("encodeFloatArrayToBase64()", ({ assert }) => {	
+   	const base64 = helpers.encodeFloatArrayToBase64([1.0, 2.0, 3.0])
+   	assert.equal(base64, "AACAPwAAAEAAAEBA")
+  })
+
+  test("decodeBase64ToFloatArray()", ({ assert }) => {	
+   	const floatArray = helpers.decodeBase64ToFloatArray("AACAPwAAAEAAAEBA")
+   	assert.deepEqual(floatArray, [1.0, 2.0, 3.0])
+  })
+
+  test("encodeIntArrayToBase64()", ({ assert }) => {	
+   	const base64 = helpers.encodeIntArrayToBase64([1, 2, 3])
+   	assert.equal(base64, "AQAAAAIAAAADAAAA")
+  })
+
+  test("decodeBase64ToIntArray()", ({ assert }) => {	
+   	const intArray = helpers.decodeBase64ToIntArray("AQAAAAIAAAADAAAA")
+   	assert.deepEqual(intArray, [1, 2, 3])
+  })
+   
 })

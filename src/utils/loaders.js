@@ -9,13 +9,14 @@ export class BA2D
      * Loads a BA2D file into an array.
      */
     load(fileName) {
+
     }   
 
     /** 
      * Saves a 2D array into a BA2D file.
      */
-    save(fileName) {
-
+    save(fileName, array, dims) {
+		
     }
 }
 
@@ -31,7 +32,7 @@ export class FVecs
     /** 
      * Saves array .fvecs file.
      */
-    save(fileName) {
+    save(array, fileName) {
 
     }
 }

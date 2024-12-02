@@ -1,6 +1,6 @@
 import { test } from '@japa/runner'
 
-import { BA2D, FVecs } from "nns-lite/src/utils/loaders.js"
+import { BA2D } from "nns-lite/src/utils/loaders.js"
 
 test.group('BA2D', () => {
 	test("must save and load points", ({ assert }) => {

@@ -9,20 +9,43 @@ export class BA2D
     /**
      * Loads a BA2D file into an array.
      */
-    static load(filePath, dims) {
-		const bytes = fs.readFileSync(filePath)	
-		const floatArray = helpers.decodeBytesToFloatArray(bytes) 
-		const vectorCount = floatArray.length / dims 
-		const vectors = helpers.subdivide(floatArray, vectorCount)
-		return vectors	
+    static load(filePath, dims, { batchSize = 200000, onLoadPoints = null }) {
+		const contents = fs.readFileSync(filePath)
+		let subArrays = []
+		const subArraySize = dims * 4
+		const batchSizeBytes = subArraySize * batchSize
+		let count = 0
+		for(let i = 0; i < contents.length; i += batchSizeBytes) {
+			const subArrayBytes = contents.slice(i, i + batchSizeBytes) 
+			const subArrayAll = helpers.decodeBytesToFloatArray(subArrayBytes)
+			const subArrayChunks = helpers.subdivide(subArrayAll, batchSize)
+			subArrays = subArrays.concat(subArrayChunks)
+			if(onLoadPoints) onLoadPoints(subArrayChunks, count)
+			count +=1
+		}
+		return subArrays
     }   
 
     /** 
      * Saves a 2D array into a BA2D file.
      */
-    static save(filePath, array, dims) {
-		const flattened = helpers.flatten(array)
-		const byteArray = helpers.encodeFloatArrayToBytes(flattened)
-		fs.writeFileSync(filePath, byteArray)
+    static save(filePath, array, dims, batchSize=1000) {
+		let buffer = []
+		if(fs.existsSync(filePath)) {
+			fs.unlinkSync(filePath)
+		}
+		for(let i = 0; i < array.length; i++) {
+			const subArray = array[i]
+			if(i > 0 && i % batchSize == 0) {
+				const bufferFlat = helpers.flatten(buffer)
+				const bytes = helpers.encodeFloatArrayToBytes(bufferFlat)
+				fs.appendFileSync(filePath, bytes)
+				buffer = []
+			}
+			buffer.push(subArray)
+		}
+		const bufferFlat = helpers.flatten(buffer)
+		const bytes = helpers.encodeFloatArrayToBytes(bufferFlat)
+		fs.appendFileSync(filePath, bytes)
     }
 }

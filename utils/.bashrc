@@ -1,3 +1,7 @@
+# --- ignore node_modules/ and env/ folder --- #
+export FZF_DEFAULT_COMMAND='find . -type d \( -name node_modules -o -name .git -o -name env \) -prune -o -type f -print'
+
+
 # --- create alias for editing --- # 
 function edit() {
 	filename=$(fzf --header "--- EDIT FILE ---")

@@ -13,3 +13,15 @@ function run() {
 	history -s "bash run.sh $filename"
 }
 
+# --- shortcut for quickly commiting to github --- # 
+function qcp() {
+	git add .
+	git commit -m $1
+	git push -u origin main
+}
+
+
+# --- aliases --- # 
+alias e=edit
+alias r=run
+alias q=exit

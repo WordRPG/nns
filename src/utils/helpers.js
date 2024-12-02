@@ -51,3 +51,38 @@ export function subdivide(array, k) {
     const partitionSize = array.length / k
     return partition(array, partitionSize)
 }
+
+/**
+ * Flattens an 2D array.
+ */
+export function flatten(array) {
+	let flattened = [] 
+	for(let item of array) {
+		flattened = flattened.concat(item)
+	}
+	return flattened
+}
+
+
+/**
+ * Encode float array to byyes.
+ */
+ export function encodeFloatArrayToBytes(floatArray) {
+	const f32a          = new Float32Array(floatArray)
+	const bytes         = new Uint8Array(f32a.buffer)
+	return bytes
+ }
+
+ 
+ /**
+  * Decode byte array to float array.
+  */
+ export function decodeBytesToFloatArray(bytes) {
+    const itemsF32     = new Float32Array(
+ 	    bytes.buffer, 
+ 	    bytes.byteOffset, 
+ 	    bytes.byteLength / Float32Array.BYTES_PER_ELEMENT
+ 	)
+ 	const items = Array.from(itemsF32)	
+ 	return items
+ }

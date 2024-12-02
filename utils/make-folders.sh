@@ -11,7 +11,7 @@ fi
 
 # --- make temp/ folder --- # 
 echo "Making temp/ folder..."
-if [ ! -d data/ ] 
+if [ ! -d temp/ ] 
 then 
     mkdir temp/ 
 fi 

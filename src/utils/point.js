@@ -24,7 +24,7 @@
  		return this.value.at(i)
  	}
 
- 	serialize() {
+ 	toJSON() {
  		const data = {
  			id : this.id, 
  			value : helpers.encodeFloatArrayToBase64(this.value)
@@ -32,7 +32,7 @@
  		return data
  	}
 
- 	static deserialize(data) {
+ 	static fromJSON(data) {
  		data.value = helpers.decodeBase64ToFloatArray(data.value) 
 		const point = new Point(data.id, data.value)
 		return point

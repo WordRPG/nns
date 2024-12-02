@@ -26,20 +26,20 @@ test.group('Point', () => {
 	assert.equal(point.dimCount(), 3)
   })
 
-  test('serialize()', ({ assert }) => {
+  test('toJSON()', ({ assert }) => {
 	const point = new Point(1, [1, 2, 3])
-	assert.deepEqual(point.serialize(), { 
+	assert.deepEqual(point.toJSON(), { 
 		id: 1,
 		value :"AACAPwAAAEAAAEBA"
 	})
   })
 
-  test('deserialize()', ({ assert }) => {
+  test('fromJSON()', ({ assert }) => {
   	const serialized = { 
   		id : 1, 
   		value : "AACAPwAAAEAAAEBA" 
   	}
-  	const point = Point.deserialize(serialized)
+  	const point = Point.fromJSON(serialized)
   	assert.equal(point.id, 1)
   	assert.deepEqual(point.value, [1, 2, 3])
   })

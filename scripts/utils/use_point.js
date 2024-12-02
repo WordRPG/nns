@@ -13,7 +13,7 @@ console.log(point.dimCount() + " dimensions")
 console.log("2nd coordinate : " + point.at(1))
 
 // --- serialize --- //
-console.log("Serialized : " + point.serialize())
+console.log("toJSON() : " + point.toJSON())
 
 // -- deserialize --- //
-console.log("Deserialized : " + Point.deserialize(point.serialize()))
+console.log("fromJSON() : " + Point.fromJSON(point.toJSON()))

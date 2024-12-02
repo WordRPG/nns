@@ -27,6 +27,8 @@
     "@japa/assert": "^3.0.0",
     "@japa/runner": "^3.1.4",
     "chance": "^1.1.12",
-    "tabulate": "^1.0.0"
+    "jest": "^29.7.0",
+    "tabulate": "^1.0.0",
+    "tinyspy": "^3.0.2"
   }
 }

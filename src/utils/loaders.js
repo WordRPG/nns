@@ -29,11 +29,12 @@ export class BA2D
     /** 
      * Saves a 2D array into a BA2D file.
      */
-    static save(filePath, array, dims, batchSize=1000) {
+    static save(filePath, array, dims, { batchSize = 250000, onSavePoints = null }) {
 		let buffer = []
 		if(fs.existsSync(filePath)) {
 			fs.unlinkSync(filePath)
 		}
+		let count = 0
 		for(let i = 0; i < array.length; i++) {
 			const subArray = array[i]
 			if(i > 0 && i % batchSize == 0) {
@@ -41,11 +42,16 @@ export class BA2D
 				const bytes = helpers.encodeFloatArrayToBytes(bufferFlat)
 				fs.appendFileSync(filePath, bytes)
 				buffer = []
+				if(onSavePoints) onSavePoints(buffer, count)
 			}
 			buffer.push(subArray)
+			count += 1
 		}
+		
 		const bufferFlat = helpers.flatten(buffer)
 		const bytes = helpers.encodeFloatArrayToBytes(bufferFlat)
+		if(onSavePoints) onSavePoints(buffer, count)
+						
 		fs.appendFileSync(filePath, bytes)
     }
 }

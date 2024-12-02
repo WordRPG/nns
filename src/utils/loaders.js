@@ -26,31 +26,3 @@ export class BA2D
 		fs.writeFileSync(filePath, byteArray)
     }
 }
-
-export class FVecs
-{
-    /**
-     * Loads a .fvecs file into a 2D array.
-     */
-    static load(filePath) {
- 		const bytes = fs.readFileSync(filePath) 
- 		const dimBytes = bytes.slice(0, 4).toString()
- 		const dims = helpers.decodeBytesToInteger(dimBytes)
- 		const floatBytes = bytes.slice(4) 
- 		const floatArray = helpers.decodeBytesToFloatArray(floatBytes) 
- 		const vectors = helpers.partition(floatArray, dims)
- 		return vectors
-    }   
-
-    /** 
-     * Saves array .fvecs file.
-     */
-    static save(filePath, array) {
-		const dims = array[0].length 
-		const dimBytes = helpers.encodeIntegerToBytes(dims)
-		const flattened = helpers.flatten(array)
-		const byteArray = helpers.encodeFloatArrayToBytes(flattened) 
-		fs.writeFileSync(filePath, dimBytes) 
-		fs.appendFileSync(filePath, byteArray)
-    }
-}

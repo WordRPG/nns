@@ -15,9 +15,6 @@ export class BruteForceNNS extends Indexer
      */
     constructor(options) {
         super(options)
-
-        // --- whether the tree supports FNS or not
-        this.supportsFNS = true
     }
 
     // --- TREE CONSTRUCTION ---  // 

@@ -12,7 +12,7 @@ const pipeline = new SearchPipeline()
 pipeline.buildIndexer = () => {
     pipeline.benchmark.start("build-indexer")
     pipeline.indexer = new BallTree({
-        measureFn : registry.measures[settings.search.measure]()
+        measureFn : registry.measures[settings.search.measure]
     })
     pipeline.indexer.build(pipeline.points)
     pipeline.benchmark.end("build-indexer")

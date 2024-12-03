@@ -13,24 +13,30 @@ export class ObjectStorage
 	constructor({
 		storage = FileStorage
 	} = {}) {
-		this.storage = FileStorage
+		this.storage = storage
 	}
 
+	/** 
+	 * Saves an object to the given filename.
+	 */
 	async save(object, filename) {
 		const saveData = JSON.stringify(object.toJSON())
 		await this.storage.write(filename, saveData)
 	}
 
+	/**
+	 * Loads an object from the given filename.
+	 */
 	async load(objectType, fileName) {
 		const content = await this.storage.load(fileName)
-		return objectType.fromJSON(content)
+		return objectType.fromJSON(JSON.parse(content))
 	}
 }
 
 
 export class FileStorage
 {
-	static async write(filePath, data) {
+	static async write(filePath, data) {	
 		const fs = (await import("fs")).default
 		fs.writeFileSync(filePath, data)
 	}
@@ -44,11 +50,13 @@ export class FileStorage
 
 export class BrowserLocalStorage
 {
-	static async write(fileName, data) {
-		localStorage.setItem("object:" + filePath, data)
+	static driver = () => localStorage
+
+	static async write(filePath, data) {
+		BrowserLocalStorage.driver().setItem("object:" + filePath, data)
 	}
 
-	static async read(fileName) {
-		localStorage.getItem("object:" + filePath)	
+	static async read(filePath) {
+		BrowserLocalStorage.driver().getItem("object:" + filePath)	
 	}
 }

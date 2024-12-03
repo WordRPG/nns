@@ -22,7 +22,7 @@ print("Saving to file.")
 open(new_file, "wb").close()
 new_file_obj = open(new_file, "ab")
 for i in range(contents.shape[0]):
-    print(f"--- Saving {i} of {contents.shape[0]}", end="\r")
+    print(f"--- Saving {i + 1} of {contents.shape[0]}", end="\r")
     vector = contents[i].tolist()
     vector_b = array.array("f", vector).tobytes()
     new_file_obj.write(vector_b)

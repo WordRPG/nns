@@ -131,7 +131,7 @@ export function farthestFirst(points, target, measureFn) {
     for(let i = 0; i < points.length; i++) {
         const otherPoint = points[i]
         const distance = measureFn(target, otherPoint) 
-        if(distance >= maxDistance) {
+        if(distance > maxDistance) {
             maxDistance = distance
             maxIndex = i
         }

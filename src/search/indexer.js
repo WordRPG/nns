@@ -5,9 +5,6 @@ import * as measures from "nns-lite/src/utils/measures.js"
 
 export class Indexer 
 {
-    static NNS = 0
-    static FNS = 1
-
     constructor(options) {
         this.measureFn = options.measureFn
         this.points = null 
@@ -20,12 +17,11 @@ export class Indexer
     }
 
     create() {
-        throw new Error("Must implement .construct()")
+        throw new Error("Must implement .create()")
     }
-    
 
     /// --- TREE QUERIES --- // 
-    query(target, k, mode = Indexer.NNS) {
+    query(target, k) {
         throw new Error("Must implement .query()")
     }
 }

@@ -10,7 +10,6 @@ import { Indexer } from "../../indexer.js"
 export class BruteForceNNS extends Indexer
 {
     /** 
-     * Creates brute force indexer.
      * @param {Object} options 
      * @param {Function} options.measureFn - the measure function to use 
      */
@@ -35,15 +34,7 @@ export class BruteForceNNS extends Indexer
     /** 
      * Queries the tree.
      */
-    query(target, k, mode = Indexer.NNS) {
-        if(mode == Indexer.NNS) {
-            return operations.nearestK(this.points, target, k, this.measureFn)
-        } 
-        else if (mode == Indexer.FNS) {
-            return operations.farthestK(this.points, target, k, this.measureFn)
-        }
-        else {
-            throw new Error("Unknown mode.")
-        }
+    query(target, k) {
+        return operations.nearestK(this.points, target, k, this.measureFn)
     }
 }

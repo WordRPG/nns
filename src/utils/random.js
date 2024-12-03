@@ -32,6 +32,8 @@ export class Random
         return this.generator.pickset(array, k)
     } 
 
-
+    shuffle(array) {
+        return this.generator.shuffle(array)
+    }
 }
 

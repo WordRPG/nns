@@ -79,7 +79,6 @@ export function nearestK(points, target, k, measureFn) {
     const heap = new Heap({ comparator: (a, b) => b[1] - a[1], maxSize: k })
     for(let i = 0; i < points.length; i++) {
         const otherPoint = points[i]
-
         const distance = measureFn(target, otherPoint) 
         heap.push([i, distance])
     }

@@ -25,6 +25,7 @@ export function randomPoints(count = 10, dims = 5, generator = defaultGenerator)
     const points = []
     for(let i = 0; i < count; i++) {
         points.push(randomPoint(dims, generator))
+        points[i].id = i
     }
     return points
 }

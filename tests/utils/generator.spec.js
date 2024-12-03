@@ -13,8 +13,9 @@ test.group('Generate', () => {
     const points = generate.randomPoints(10, 5)
     assert.isArray(points)
     assert.doesNotThrow(() => {
-      points.forEach((point) => {
+      points.forEach((point, index) => {
         assert.isTrue(point instanceof Point)
+        assert.equal(point.id, index)
       })
     })
   })

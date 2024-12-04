@@ -15,15 +15,15 @@ pipeline.buildIndexer = () => {
     pipeline.indexer = new IVFFlat({
         clustererFn : () => {
             return new KMeans({
-                clusterCount : 100, 
+                clusterCount : 1000, 
                 centroidStrategy : "random",
                 verbose : true,
-                randomState : 1234567890
+                randomState : 1234567890,
             })
         },
         measureFn : registry.measures[settings.search.measure]
     })
-    pipeline.indexer.build(pipeline.points)
+    pipeline.indexer.build(pipeline.points, 3)
     pipeline.benchmark.end("build-indexer")
 }
 

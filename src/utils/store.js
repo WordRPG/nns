@@ -28,7 +28,7 @@ export class ObjectStorage
 	 * Loads an object from the given filename.
 	 */
 	async load(objectType, fileName) {
-		const content = await this.storage.load(fileName)
+		const content = await this.storage.read(fileName)
 		return objectType.fromJSON(JSON.parse(content))
 	}
 }

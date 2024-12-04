@@ -7,6 +7,8 @@ import * as helpers from "nns-lite/src/utils/helpers.js"
 import { KMeans } from "../../utils/kmeans.js"
 import { Indexer } from "../indexer.js"
 import { Heap } from "../../utils/heap.js"
+import { Benchmarker } from "../../utils/benchmark.js"
+import { Point } from "../../utils/point.js"
 
 export class IVFFlat 
 {
@@ -40,10 +42,15 @@ export class IVFFlat
     /**
      * Predict using k-means clusterer of this IVF-Flat object..
      */
-    query(target, k, probeCount = 3) {
+    query(target, k, probeCount = 10) {
         // --- find closest centroids
         const clusterCount = this.clusterer.clusterCount
+        
+        const benchmark = new Benchmarker() 
+
+        benchmark.start("closest-centroids")
         const closestCentroids = this.closestCentroids(target, clusterCount)
+        benchmark.end("closest-centroids")
 
         // --- heap for closest points
         const heap = new Heap({
@@ -53,11 +60,17 @@ export class IVFFlat
 
 
         // --- find closest points
+        benchmark.start("closest-points")
+
         let probedCount = 0 
         while(probedCount < probeCount || heap.size() < k) {
             const probeClusterId = closestCentroids[probedCount][0]
             const clusterPointIds = this.clusterer.clusterAssignments[probeClusterId]
             const clusterPoints = clusterPointIds.map(id => this.points[id]) 
+
+            if(clusterPointIds.length == 0) {
+                continue
+            }
 
             for(let clusterPoint of clusterPoints) {
                 const distance = this.measureFn(clusterPoint, target)
@@ -67,6 +80,11 @@ export class IVFFlat
             }
 
             probedCount += 1
+        }
+        benchmark.end("closest-points")
+
+        if(this.verbose) {
+            console.log(benchmark.summary())
         }
 
         // --- return results 
@@ -83,4 +101,25 @@ export class IVFFlat
         return this.clusterer.predictAll(target)
     }
 
+    /** 
+     * Saves IVF Flat to JSON.
+     */
+    toJSON() {
+        return {
+            clusterer : {
+                clusterAssignments : this.clusterer.clusterAssignments,
+                centroids : this.clusterer.centroids 
+            }
+        }
+    }   
+
+    /** 
+     * Loads IVF Flat from JSON.
+     */
+    static fromJSON(data) {
+        const ivf = new IVFFlat()
+        ivf.clusterer.clusterAssignments = data.clusterer.clusterAssignments 
+        ivf.clusterer.centroids = data.clusterer.centroids.map(x => Point.fromJSON(x))
+        return ivf
+    }
 }

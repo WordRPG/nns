@@ -10,9 +10,9 @@ export const settings = {
     },
     search : {
         pointCount  : 10000, 
-        dimCount    : 2,
+        dimCount    : 50,
         target      : 50,
-        queryCount  : 10, 
+        queryCount  : 20, 
         measure     : "euclidean"
     }
 }

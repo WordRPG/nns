@@ -15,7 +15,8 @@ export class KMeans
         clusterCount = 10,
         randomState  = 1234567890,
         centroidStrategy = "random",
-        measureFn = measures.euclideanDistance
+        measureFn = measures.euclideanDistance,
+        verbose = false 
     } = {}) {
         this.clusterCount = clusterCount 
         this.randomState = randomState
@@ -26,6 +27,7 @@ export class KMeans
         this.random = new Random(this.randomState)
         this.measureFn = measureFn
         this.clusterAssignments = []
+        this.verbose = verbose
     }
 
     /** 
@@ -56,7 +58,7 @@ export class KMeans
      */
     initRandomCentroids() {
         const clusterCount = this.clusterCount
-        const dimCount = this.dimCount
+        const dimCount = this.points[0].dimCount()
         const centroids = generate.randomPoints(clusterCount, dimCount)
         this.centroids = centroids
     }
@@ -79,6 +81,9 @@ export class KMeans
 
         // --- find other centroids 
         for(let i = 1; i < clusterCount; i++) {
+            if(this.verbose) {
+                console.log("---- Initializing centroid " + (i + 1) + " of " + clusterCount)
+            }
             let maxDistance = -Infinity
             let maxIndex    = -1 
             for(let j = visitIndex; j < visitOrder.length; j++) {
@@ -103,6 +108,7 @@ export class KMeans
      * Fit one iteration. 
      */
     fitOne() {
+        this.iterFitted += 1
         if(!this.hasInitializedCentroids) {
             this.initCentroids()
         }
@@ -123,8 +129,13 @@ export class KMeans
             clusterAssignments.push([])
         }
 
+        
+
         // --- assign clusters to centroids
         for(let i = 0; i < pointCount; i++) {
+            if(this.verbose) {
+                console.log("---- (Iter. Count : " + this.iterFitted + ") Assigning clusters " + (i + 1) + " of " + pointCount)
+            }
             const point = this.points[i] 
             const closestCentroid = 
                 operations.nearestFirst(centroids, point, this.measureFn)
@@ -144,6 +155,9 @@ export class KMeans
 
         // --- recalculate centroids of each cluster 
         for(let i = 0; i < centroids.length; i++) {
+            if(this.verbose) {
+                console.log("---- (Iter. Count : " + this.iterFitted + ")---- Adjusting centroids " + (i + 1) + " of " + centroids.length)
+            }
             const clusterPointIds = clusterAssignments[i]
             const clusterPoints = clusterPointIds.map(id => this.points[id])
             
@@ -159,13 +173,12 @@ export class KMeans
     /** 
      * Fit n iterations.
      */
-    fit(iterCount, { verbose = true } = {}) {
+    fit(iterCount) {
         for(let i = 0; i < iterCount; i++) {
-            if(verbose) {
-                console.log("--- Iteration " + i + " of " + iterCount)
+            if(this.verbose) {
+                console.log("---- Fitting " + (i + 1) + " of " + iterCount)
             }
             this.fitOne() 
-            console.log(this.centroids[0])
         }
     }
 

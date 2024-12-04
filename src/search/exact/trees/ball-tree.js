@@ -178,7 +178,10 @@ export class BallTree extends Indexer
         }
 
         // --- set up heap 
-        let heap = []
+        let heap = new Heap({
+            comparator : (a, b) => b[1] - a[1],
+            maxSize : k
+        })
 
         // --- start searching in tree --- //
         function searchIn(node, depth) {
@@ -211,28 +214,28 @@ export class BallTree extends Indexer
             // --- visit subtrees
             if(leftDist < rightDist) {
                 if(
-                    heap.length < k || 
-                    heap.at(-1)[1] > leftDist - leftNode.getRadius()
+                    heap.size() < k || 
+                    heap.peek()[1] > leftDist - leftNode.getRadius()
                 ) {
                     searchIn(leftNode, depth + 1)
                 }
                 if(
-                    heap.length < k || 
-                    heap.at(-1)[1] > rightDist - rightNode.getRadius()
+                    heap.size() < k || 
+                    heap.peek()[1] > rightDist - rightNode.getRadius()
                 ) {
                     searchIn(rightNode, depth + 1)
                 }
             }
             else {
                 if(
-                    heap.length < k || 
-                    heap.at(-1)[1] > rightDist - rightNode.getRadius()
+                    heap.size() < k || 
+                    heap.peek()[1] > rightDist - rightNode.getRadius()
                 ) {
                     searchIn(rightNode, depth + 1)
                 }
                 if(
-                    heap.length < k || 
-                    heap.at(-1)[1] > leftDist - leftNode.getRadius()
+                    heap.size() < k || 
+                    heap.peek()[1] > leftDist - leftNode.getRadius()
                 ) {
                     searchIn(leftNode, depth + 1)
                 }
@@ -249,10 +252,8 @@ export class BallTree extends Indexer
             for(let point of node.getPoints()) {
                 visits.comparisons.points += 2 
                 const distance = self.measureFn(target, point)
-                if(heap.length < k || distance < heap.at(-1)[1]) {
+                if(heap.size() < k || distance < heap.peek()[1]) {
                     heap.push([point.id, distance])
-                    heap.sort((a, b) => a[1] - b[1])
-                    heap = heap.slice(0, k)
                 }
             }
         }
@@ -261,7 +262,8 @@ export class BallTree extends Indexer
 
         // --- build response
         response.visits = visits
-        response.results = heap
+        response.results = heap.extract() 
+        response.results.reverse()
 
         // --- return results --- //
         return response

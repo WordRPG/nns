@@ -76,15 +76,14 @@ export function distances(point, points, measureFn) {
  * using heap method.
  */
 export function nearestK(points, target, k, measureFn) {
-    const heap = new Heap({ comparator: (a, b) => b[1] - a[1], maxSize: k })
+    const distances = []
     for(let i = 0; i < points.length; i++) {
-        const otherPoint = points[i]
-        const distance = measureFn(target, otherPoint) 
-        heap.push([i, distance])
+        const distance = measureFn(points[i], target)
+        const record = [i, distance]
+        distances.push(record)
     }
-    const results = heap.extract()
-    results.reverse()
-    return results
+    distances.sort((a, b) => a[1] - b[1])
+    return distances.slice(0, k)
 }
 
 /** 
@@ -92,15 +91,14 @@ export function nearestK(points, target, k, measureFn) {
  * using heap method.
  */
 export function farthestK(points, target, k, measureFn) {
-    const heap = new Heap({ comparator: (a, b) => a[1] - b[1], maxSize: k })
+    const distances = []
     for(let i = 0; i < points.length; i++) {
-        const otherPoint = points[i]
-        const distance = measureFn(target, otherPoint) 
-        heap.push([i, distance])
+        const distance = measureFn(points[i], target)
+        const record = [i, distance]
+        distances.push(record)
     }
-    const results = heap.extract()
-    results.reverse()
-    return results
+    distances.sort((a, b) => a[1] - b[1])
+    return distances.slice(0, k)
 }
 
 

@@ -1,3 +1,4 @@
+import readline from "readline"
 
 /** 
  * Repeats a string n times. 
@@ -219,6 +220,12 @@ export function decodeBase64ToIntArray(base64) {
      return floatArray; 
 }
 
- 
-
-
+/**
+ * Clear last line.
+ */
+const ESC = '\x1b' // ASCII escape character
+const CSI = ESC + '[' // control sequence introducer
+export function clearLastLine() {
+  process.stdout.write(CSI + 'A') // moves cursor up one line
+  process.stdout.write(CSI + 'K') // clears from cursor to line end
+}

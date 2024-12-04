@@ -13,6 +13,6 @@ export const settings = {
         dimCount    : 2,
         target      : 50,
         queryCount  : 10, 
-        measure     : "negative-euclidean"
+        measure     : "euclidean"
     }
 }

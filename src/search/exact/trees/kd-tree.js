@@ -7,7 +7,7 @@ import { Indexer } from "../../indexer.js"
 import { Random } from "../../../utils/random.js"
 import { Heap } from "../../../utils/heap.js"
 
-export class BallTree extends Indexer
+export class KDTree extends Indexer
 {
     /** 
      * @param {Object} options 
@@ -18,9 +18,18 @@ export class BallTree extends Indexer
      */
     constructor(options) {
         super(options)
-        
+
         // --- threshold value 
         this.threshold = options.threshold ??  1
+        
+        // --- tree root 
+        this.root = null
+
+        // --- random state 
+        this.randomState = options.randomState ?? 1234567890 
+
+        // --- random generator 
+        this.random = new Random(this.randomState)
     }
 
     // --- TREE CONSTRUCTION --- //
@@ -41,6 +50,7 @@ export class BallTree extends Indexer
 
         const self = this;
         const threshold = this.threshold
+        const dims = this.points[0].dimCount()
 
         // --- build tree 
         function buildFor(points, depth = 0) {
@@ -69,21 +79,24 @@ export class BallTree extends Indexer
             buildInfo.depths.internal[depth] += 1
             buildInfo.depths.all[depth] += 1
 
+            // --- get axis of median split 
+            const axis = depth % dims 
+            points.sort((a, b) => a.at(axis) - b.at(axis)) 
+        
+            // --- get split value 
+            const medianIndex = Math.floor(points.length / 2) 
+            const medianValue = points[medianIndex].at(axis)
 
-            const [centroid, radius, left, right] = 
-                self.splitterObj.split(points, depth)
+            // --- split to left and right splits 
+            const leftPoints = points.filter((point) => point.at(axis) < medianValue) 
+            const rightPoints = points.filter((point) => point.at(axis) >= medianValue) 
 
-            // --- register centroid 
-            centroid.id = self.centroids.length 
-            self.centroids.push(centroid)
-
-            // --- create internal node 
-            const node = new BTInternalNode({
-                tree : self,
-                centroid : centroid.id, 
-                radius : radius, 
-                left : buildFor([...left], depth + 1),
-                right : buildFor([...right], depth + 1)
+            // --- build node 
+            const node = new KDTInternalNode({
+                tree : this, 
+                median : medianValue,
+                left : buildFor(leftPoints, depth + 1),
+                right : buildFor(rightPoints, depth + 1)
             })
 
             return node
@@ -101,28 +114,15 @@ export class BallTree extends Indexer
             if(!(depth in buildInfo.depths.all)) {
                 buildInfo.depths.all[depth] = 0
             }
+
             buildInfo.depths.leaves[depth] += 1
             buildInfo.depths.all[depth] += 1
 
-            if(points.length == 1) {
-                return new BTLeafNodeSP({
-                    tree : self,
-                    point : points[0].id
-                })
-            }
-            else {
-                // --- register centroid 
-                const centroid = operations.centroid(points)
-                centroid.id = self.centroids.length 
-                self.centroids.push(centroid)
-
-                return new BTLeafNodeMP({
-                    tree : self,
-                    points : points.map(x => x.id),
-                    centroid : centroid.id, 
-                    radius : operations.radius(points, self.measureFn)
-                })
-            }
+            
+            return new KDTLeafNode({
+                tree : self,
+                points : points.map(x => x.id)
+            })
         }
 
         this.root = buildFor([...this.points], 0)
@@ -151,7 +151,13 @@ export class BallTree extends Indexer
         }
 
         // --- set up heap 
-        let heap = []
+        let heap = new Heap({
+            comparator : (a, b) => b[1] - a[1],
+            maxSize : k
+        })
+
+        // --- dimension count 
+        const dims = this.points[0].dimCount()
 
         // --- start searching in tree --- //
         function searchIn(node, depth) {
@@ -172,44 +178,25 @@ export class BallTree extends Indexer
             visits.nodes.all += 1
             visits.comparisons.centroids += 2 
 
-            // --- check distance to left and right centroids 
-            const leftNode = node.left
-            const rightNode = node.right
+            // --- search in subtrees 
+            const axis = depth % dims 
+            const median = node.median 
+            const dimValue = target.at(axis)
+            const axisDiff = dimValue - median 
 
-            const leftDist   = 
-                self.measureFn(target, leftNode.getCentroid())
-            const rightDist  = 
-                self.measureFn(target, rightNode.getCentroid())
-
-            // --- visit subtrees
-            if(leftDist < rightDist) {
-                if(
-                    heap.length < k || 
-                    heap.at(-1)[1] > leftDist - leftNode.getRadius()
-                ) {
-                    searchIn(leftNode, depth + 1)
-                }
-                if(
-                    heap.length < k || 
-                    heap.at(-1)[1] > rightDist - rightNode.getRadius()
-                ) {
-                    searchIn(rightNode, depth + 1)
+            if(axisDiff < 0) {
+                searchIn(node.left, depth + 1) 
+                if(heap.size() < k || heap.peek()[1] > Math.abs(axisDiff)) {
+                    searchIn(node.right, depth + 1)
                 }
             }
             else {
-                if(
-                    heap.length < k || 
-                    heap.at(-1)[1] > rightDist - rightNode.getRadius()
-                ) {
-                    searchIn(rightNode, depth + 1)
-                }
-                if(
-                    heap.length < k || 
-                    heap.at(-1)[1] > leftDist - leftNode.getRadius()
-                ) {
-                    searchIn(leftNode, depth + 1)
+                searchIn(node.right, depth + 1) 
+                if(heap.size() < k || heap.peek()[1] > Math.abs(axisDiff)) {
+                    searchIn(node.left, depth + 1)
                 }
             }
+            
         }
         
         // --- handle leaf nodes --- //
@@ -222,10 +209,8 @@ export class BallTree extends Indexer
             for(let point of node.getPoints()) {
                 visits.comparisons.points += 2 
                 const distance = self.measureFn(target, point)
-                if(heap.length < k || distance < heap.at(-1)[1]) {
+                if(heap.size() < k || distance < heap.peek()[1]) {
                     heap.push([point.id, distance])
-                    heap.sort((a, b) => a[1] - b[1])
-                    heap = heap.slice(0, k)
                 }
             }
         }
@@ -234,139 +219,38 @@ export class BallTree extends Indexer
 
         // --- build response
         response.visits = visits
-        response.results = heap
+        response.results = heap.extract()
+        response.results.reverse()
 
         // --- return results --- //
         return response
     }
-
 }
 
-// --- BALL TREE NODES --- //
-
-export class BTNode 
-{
-    getRadius() {
-        return this.radius 
-    }
-
-    getCentroid() {
-        return this.tree.centroids[this.centroid]
-    }
-}
-
-export class BTInternalNode extends BTNode
-{
+export class KDTInternalNode {
     constructor({
-        tree     = null,
-        centroid = null, 
-        radius   = null,
-        left     = null,
-        right    = null 
-    } = {}) {
-        super()
-        this.tree = tree
-        this.centroid = centroid 
-        this.radius = radius
-        this.left = left 
-        this.right = right
-    }
-
-    toJSON() {
-        return {
-            centroid : this.centroid, 
-            radius : this.radius, 
-            left : this.left, 
-            right : this.right
-        }
-    }
-
-    static fromJSON(data) { 
-        const node = new BTInternalNode({
-            tree : this,
-            centroid : data.centroid, 
-            radius : data.radius, 
-            left : data.left, 
-            right : data.right
-        })
-        return node
-    }
-}
-
-export class BTLeafNodeMP extends BTNode
-{
-    constructor({
-        tree     = null, 
-        centroid = null,
-        radius   = null, 
-        points   = null 
+        tree = null,
+        median = null,
+        left = null,
+        right = null 
     }) {
-        super()
         this.tree = tree
-        this.centroid = centroid 
-        this.radius = radius
-        this.points = points
+        this.median = median 
+        this.left = left
+        this.right = right 
     }
+}
 
-    getCentroid() {
-        return this.tree.centroids[this.centroid]
+export class KDTLeafNode {
+    constructor({
+        tree = null,
+        points = null
+    }) {
+        this.tree = tree
+        this.points = points         
     }
 
     getPoints() {
-        return points.map(id => this.tree.points[id])
-    }
-
-    toJSON() {
-        return {
-            centroid : this.centroid, 
-            radius : this.radius, 
-            points : this.points
-        }
-    }
-
-    static fromJSON(data) {
-        const node = new BTLeafNodeMP({
-            centroid : data.centroid, 
-            radius : data.radius, 
-            points : data.points
-        })
-        return node
-    }
-}
-
-export class BTLeafNodeSP extends BTNode
-{
-    constructor({
-        tree    = null,
-        point   = null 
-    }) {
-        super()
-        this.tree  = tree
-        this.point = point
-    }
-
-    getCentroid() {
-        return this.tree.points[this.point]
-    }
-
-    getPoints() {
-        return [this.tree.points[this.point]]
-    }
-
-    getRadius() {
-        return 0
-    }
-
-    toJSON() {
-        return {
-            point : this.point
-        } 
-    }
-
-    static fromJSON(data) {
-        const node = new BTLeafNodeSP({
-            point : data.point
-        })
-        return node
+        return this.points.map(id => this.tree.points[id])
     }
 }

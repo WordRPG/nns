@@ -161,3 +161,13 @@ export function projectPointToLine(A, B, C) {
     const projectedPoint = A.value.map((a, i) => a + projection[i]);
     return new Point(null, projectedPoint);
 }
+
+
+/** 
+ * Swap array elements.
+ */
+export function swapArray(array, i, j) {
+    const temp = array[i]
+    array[i] = array[j]
+    array[j] = temp
+}

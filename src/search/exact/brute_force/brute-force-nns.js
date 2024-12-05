@@ -31,7 +31,11 @@ export class BruteForceNNS extends Indexer
     /** 
      * Queries the tree.
      */
-    query(target, k) {
-        return operations.nearestK(this.points, target, k, this.measureFn)
+    query(target, k, farthest) {
+        if(!farthest) {
+            return operations.nearestK(this.points, target, k, this.measureFn)
+        } else {
+            return operations.farthestK(this.points, target, k, this.measureFn)
+        }
     }
 }

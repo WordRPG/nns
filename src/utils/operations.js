@@ -97,7 +97,7 @@ export function farthestK(points, target, k, measureFn) {
         const record = [i, distance]
         distances.push(record)
     }
-    distances.sort((a, b) => a[1] - b[1])
+    distances.sort((a, b) => b[1] - a[1])
     return distances.slice(0, k)
 }
 

@@ -2,6 +2,7 @@ import { KMeans } from "../../src/utils/kmeans.js";
 import * as generate from "nns-lite/src/utils/generate.js"
 import * as measures from "nns-lite/src/utils/measures.js"
 import { Point } from "../../src/utils/point.js";
+import { registry } from "../../src/registry.js";
 
 const POINT_COUNT = 10000
 const DIM_COUNT = 50
@@ -14,9 +15,9 @@ console.log("\tPoint Count : " + points.length)
 // --- initialize k-means --- //
 console.log("Initialize K-means...")
 const indexer = new KMeans({
-    clusterCount : 1000,
+    clusterCount : 10,
     centroidStrategy : "random", 
-    measureFn : measures.euclideanDistance,
+    measureFn : registry.measures["inverted-euclidean"],
     verbose : true
 })
 indexer.setPoints(points) 
@@ -25,4 +26,5 @@ indexer.setPoints(points)
 indexer.fit(10)
 
 // --- predict --- /
-indexer.predict(generate.randomPoint(DIM_COUNT))
+console.log(indexer.predictAll(generate.randomPoint(DIM_COUNT)))
+console.log(indexer.clusterAssignments)

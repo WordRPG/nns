@@ -21,11 +21,21 @@ pipeline.buildIndexer = () => {
                 randomState : 1234567890,
             })
         },
-        measureFn : registry.measures[settings.search.measure]
+        measureFn : registry.measures["euclidean"]
     })
     pipeline.indexer.build(pipeline.points, 3)
     pipeline.benchmark.end("build-indexer")
 }
+
+pipeline.runQuery = () =>{
+    pipeline.benchmark.start("run-query") 
+    const target = pipeline.indexer.points[settings.search.target] 
+    const k = settings.search.queryCount
+    const mode = settings.search.mode
+    pipeline.results = pipeline.indexer.query(target, k, mode, true)
+    pipeline.benchmark.end("run-query")
+}
+
 
 // --- run pipeline --- //
 pipeline.run()

@@ -11,7 +11,9 @@ export class SearchBenchmark {
         k = null, 
         measureFn = null,
         skips = null,
-        probeCount = null
+        probeCount = null,
+        verbose = null,
+        farthest = null
     }) {
         this.indexer = indexer
         this.points = points 
@@ -20,6 +22,8 @@ export class SearchBenchmark {
         this.measureFn = measureFn
         this.skips = skips
         this.probeCount = probeCount
+        this.verbose = verbose
+        this.farthest = farthest
     }
 
     run(verbose = false) {
@@ -29,13 +33,18 @@ export class SearchBenchmark {
         const exact = new BruteForceNNS({ measureFn : this.measureFn }) 
         exact.build(this.points)
         benchmark.start("exact")
-        const expected = exact.query(this.target, this.maxTolerance)
+        const expected = exact.query(this.target, this.maxTolerance, this.farthest)
         benchmark.end("exact")
 
         // --- query indexer 
         const indexer = this.indexer 
         benchmark.start("approx")
-        const observed = indexer.query(this.target, this.k, this.probeCount)
+        const observed = indexer.query(
+            this.target, 
+            this.k, 
+            this.probeCount, 
+            this.farthest
+        )
         benchmark.end("approx")
 
         // --- compute results 
@@ -51,15 +60,18 @@ export class SearchBenchmark {
 
             if(this.verbose) {
                 console.log(`Recall [${i}] - ${recall}`)
-                console.log(`\t${expected.map(x => x[0])}`) 
-                console.log(`\t${observed.map(x => x[0])}`)
+                console.log(`\tExpected: ${expected.slice(0, i).map(x => x[1].toFixed(2))}`)
+                console.log(`\tObserved: ${observed.map(x => x[1].toFixed(2))}`)
             }
+
             recalls[i] = recall
             invRecalls[i] = invRecall
 
             if(recall === 1.0 && invRecall === 1.0) {
                 break 
             }
+
+            console
 
             i += this.skips
         }

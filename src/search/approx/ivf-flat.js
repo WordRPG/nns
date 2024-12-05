@@ -44,8 +44,9 @@ export class IVFFlat
      */
     query(target, k, probeCount = 10) {
         // --- find closest centroids
+        this.clusterer.clusterCount = this.clusterer.centroids.length
         const clusterCount = this.clusterer.clusterCount
-        
+
         const benchmark = new Benchmarker() 
 
         benchmark.start("closest-centroids")
@@ -58,14 +59,16 @@ export class IVFFlat
             maxSize : k
         })
 
-
         // --- find closest points
         benchmark.start("closest-points")
+
+
 
         let probedCount = 0 
         while(probedCount < probeCount || heap.size() < k) {
             const probeClusterId = closestCentroids[probedCount][0]
             const clusterPointIds = this.clusterer.clusterAssignments[probeClusterId]
+            console.log(clusterPointIds.length)
             const clusterPoints = clusterPointIds.map(id => this.points[id]) 
 
             if(clusterPointIds.length == 0) {

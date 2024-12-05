@@ -1,0 +1,304 @@
+Generating points.
+Saving indexer...
+Creating benchmarker...
+[
+  '/home/lvjhn/.nvm/versions/node/v20.14.0/bin/node',
+  '/home/lvjhn/Projects/wordrpg/nns-lite/scripts/benchmark/benchmark-ivfnkm.js'
+]
+Running benchmark...
+17
+5
+20
+6
+2
+8
+22
+10
+18
+3
+8
+5
+13
+10
+11
+6
+9
+10
+3
+21
+BENCHMARK [unnamed]
+	closest-centroids -> 0.008214519999999892
+	closest-points -> 0.00412573500000013
+
+BENCHMARK
+---------------------------------------
+	Recall [100] - 0.62 | Inv. Recall [100] - 0.62
+	Recall [101] - 0.62 | Inv. Recall [101] - 0.62
+	Recall [102] - 0.63 | Inv. Recall [102] - 0.63
+	Recall [103] - 0.64 | Inv. Recall [103] - 0.64
+	Recall [104] - 0.64 | Inv. Recall [104] - 0.64
+	Recall [105] - 0.65 | Inv. Recall [105] - 0.65
+	Recall [106] - 0.66 | Inv. Recall [106] - 0.66
+	Recall [107] - 0.66 | Inv. Recall [107] - 0.66
+	Recall [108] - 0.66 | Inv. Recall [108] - 0.66
+	Recall [109] - 0.66 | Inv. Recall [109] - 0.66
+	Recall [110] - 0.67 | Inv. Recall [110] - 0.67
+	Recall [111] - 0.68 | Inv. Recall [111] - 0.68
+	Recall [112] - 0.69 | Inv. Recall [112] - 0.69
+	Recall [113] - 0.69 | Inv. Recall [113] - 0.69
+	Recall [114] - 0.69 | Inv. Recall [114] - 0.69
+	Recall [115] - 0.7 | Inv. Recall [115] - 0.7
+	Recall [116] - 0.7 | Inv. Recall [116] - 0.7
+	Recall [117] - 0.71 | Inv. Recall [117] - 0.71
+	Recall [118] - 0.71 | Inv. Recall [118] - 0.71
+	Recall [119] - 0.72 | Inv. Recall [119] - 0.72
+	Recall [120] - 0.72 | Inv. Recall [120] - 0.72
+	Recall [121] - 0.73 | Inv. Recall [121] - 0.73
+	Recall [122] - 0.73 | Inv. Recall [122] - 0.73
+	Recall [123] - 0.74 | Inv. Recall [123] - 0.74
+	Recall [124] - 0.74 | Inv. Recall [124] - 0.74
+	Recall [125] - 0.74 | Inv. Recall [125] - 0.74
+	Recall [126] - 0.74 | Inv. Recall [126] - 0.74
+	Recall [127] - 0.74 | Inv. Recall [127] - 0.74
+	Recall [128] - 0.74 | Inv. Recall [128] - 0.74
+	Recall [129] - 0.74 | Inv. Recall [129] - 0.74
+	Recall [130] - 0.74 | Inv. Recall [130] - 0.74
+	Recall [131] - 0.74 | Inv. Recall [131] - 0.74
+	Recall [132] - 0.74 | Inv. Recall [132] - 0.74
+	Recall [133] - 0.74 | Inv. Recall [133] - 0.74
+	Recall [134] - 0.74 | Inv. Recall [134] - 0.74
+	Recall [135] - 0.74 | Inv. Recall [135] - 0.74
+	Recall [136] - 0.75 | Inv. Recall [136] - 0.75
+	Recall [137] - 0.76 | Inv. Recall [137] - 0.76
+	Recall [138] - 0.76 | Inv. Recall [138] - 0.76
+	Recall [139] - 0.76 | Inv. Recall [139] - 0.76
+	Recall [140] - 0.76 | Inv. Recall [140] - 0.76
+	Recall [141] - 0.77 | Inv. Recall [141] - 0.77
+	Recall [142] - 0.77 | Inv. Recall [142] - 0.77
+	Recall [143] - 0.77 | Inv. Recall [143] - 0.77
+	Recall [144] - 0.77 | Inv. Recall [144] - 0.77
+	Recall [145] - 0.77 | Inv. Recall [145] - 0.77
+	Recall [146] - 0.77 | Inv. Recall [146] - 0.77
+	Recall [147] - 0.78 | Inv. Recall [147] - 0.78
+	Recall [148] - 0.78 | Inv. Recall [148] - 0.78
+	Recall [149] - 0.78 | Inv. Recall [149] - 0.78
+	Recall [150] - 0.78 | Inv. Recall [150] - 0.78
+	Recall [151] - 0.78 | Inv. Recall [151] - 0.78
+	Recall [152] - 0.78 | Inv. Recall [152] - 0.78
+	Recall [153] - 0.78 | Inv. Recall [153] - 0.78
+	Recall [154] - 0.79 | Inv. Recall [154] - 0.79
+	Recall [155] - 0.79 | Inv. Recall [155] - 0.79
+	Recall [156] - 0.79 | Inv. Recall [156] - 0.79
+	Recall [157] - 0.8 | Inv. Recall [157] - 0.8
+	Recall [158] - 0.8 | Inv. Recall [158] - 0.8
+	Recall [159] - 0.8 | Inv. Recall [159] - 0.8
+	Recall [160] - 0.8 | Inv. Recall [160] - 0.8
+	Recall [161] - 0.8 | Inv. Recall [161] - 0.8
+	Recall [162] - 0.8 | Inv. Recall [162] - 0.8
+	Recall [163] - 0.81 | Inv. Recall [163] - 0.81
+	Recall [164] - 0.81 | Inv. Recall [164] - 0.81
+	Recall [165] - 0.81 | Inv. Recall [165] - 0.81
+	Recall [166] - 0.81 | Inv. Recall [166] - 0.81
+	Recall [167] - 0.81 | Inv. Recall [167] - 0.81
+	Recall [168] - 0.81 | Inv. Recall [168] - 0.81
+	Recall [169] - 0.82 | Inv. Recall [169] - 0.82
+	Recall [170] - 0.83 | Inv. Recall [170] - 0.83
+	Recall [171] - 0.83 | Inv. Recall [171] - 0.83
+	Recall [172] - 0.83 | Inv. Recall [172] - 0.83
+	Recall [173] - 0.83 | Inv. Recall [173] - 0.83
+	Recall [174] - 0.84 | Inv. Recall [174] - 0.84
+	Recall [175] - 0.84 | Inv. Recall [175] - 0.84
+	Recall [176] - 0.85 | Inv. Recall [176] - 0.85
+	Recall [177] - 0.85 | Inv. Recall [177] - 0.85
+	Recall [178] - 0.85 | Inv. Recall [178] - 0.85
+	Recall [179] - 0.85 | Inv. Recall [179] - 0.85
+	Recall [180] - 0.85 | Inv. Recall [180] - 0.85
+	Recall [181] - 0.85 | Inv. Recall [181] - 0.85
+	Recall [182] - 0.85 | Inv. Recall [182] - 0.85
+	Recall [183] - 0.85 | Inv. Recall [183] - 0.85
+	Recall [184] - 0.85 | Inv. Recall [184] - 0.85
+	Recall [185] - 0.85 | Inv. Recall [185] - 0.85
+	Recall [186] - 0.85 | Inv. Recall [186] - 0.85
+	Recall [187] - 0.85 | Inv. Recall [187] - 0.85
+	Recall [188] - 0.85 | Inv. Recall [188] - 0.85
+	Recall [189] - 0.85 | Inv. Recall [189] - 0.85
+	Recall [190] - 0.86 | Inv. Recall [190] - 0.86
+	Recall [191] - 0.86 | Inv. Recall [191] - 0.86
+	Recall [192] - 0.87 | Inv. Recall [192] - 0.87
+	Recall [193] - 0.87 | Inv. Recall [193] - 0.87
+	Recall [194] - 0.87 | Inv. Recall [194] - 0.87
+	Recall [195] - 0.87 | Inv. Recall [195] - 0.87
+	Recall [196] - 0.87 | Inv. Recall [196] - 0.87
+	Recall [197] - 0.88 | Inv. Recall [197] - 0.88
+	Recall [198] - 0.88 | Inv. Recall [198] - 0.88
+	Recall [199] - 0.88 | Inv. Recall [199] - 0.88
+	Recall [200] - 0.88 | Inv. Recall [200] - 0.88
+	Recall [201] - 0.88 | Inv. Recall [201] - 0.88
+	Recall [202] - 0.88 | Inv. Recall [202] - 0.88
+	Recall [203] - 0.88 | Inv. Recall [203] - 0.88
+	Recall [204] - 0.89 | Inv. Recall [204] - 0.89
+	Recall [205] - 0.89 | Inv. Recall [205] - 0.89
+	Recall [206] - 0.89 | Inv. Recall [206] - 0.89
+	Recall [207] - 0.89 | Inv. Recall [207] - 0.89
+	Recall [208] - 0.89 | Inv. Recall [208] - 0.89
+	Recall [209] - 0.89 | Inv. Recall [209] - 0.89
+	Recall [210] - 0.89 | Inv. Recall [210] - 0.89
+	Recall [211] - 0.89 | Inv. Recall [211] - 0.89
+	Recall [212] - 0.89 | Inv. Recall [212] - 0.89
+	Recall [213] - 0.89 | Inv. Recall [213] - 0.89
+	Recall [214] - 0.9 | Inv. Recall [214] - 0.9
+	Recall [215] - 0.9 | Inv. Recall [215] - 0.9
+	Recall [216] - 0.91 | Inv. Recall [216] - 0.91
+	Recall [217] - 0.91 | Inv. Recall [217] - 0.91
+	Recall [218] - 0.91 | Inv. Recall [218] - 0.91
+	Recall [219] - 0.91 | Inv. Recall [219] - 0.91
+	Recall [220] - 0.91 | Inv. Recall [220] - 0.91
+	Recall [221] - 0.92 | Inv. Recall [221] - 0.92
+	Recall [222] - 0.92 | Inv. Recall [222] - 0.92
+	Recall [223] - 0.92 | Inv. Recall [223] - 0.92
+	Recall [224] - 0.92 | Inv. Recall [224] - 0.92
+	Recall [225] - 0.92 | Inv. Recall [225] - 0.92
+	Recall [226] - 0.92 | Inv. Recall [226] - 0.92
+	Recall [227] - 0.92 | Inv. Recall [227] - 0.92
+	Recall [228] - 0.92 | Inv. Recall [228] - 0.92
+	Recall [229] - 0.92 | Inv. Recall [229] - 0.92
+	Recall [230] - 0.92 | Inv. Recall [230] - 0.92
+	Recall [231] - 0.92 | Inv. Recall [231] - 0.92
+	Recall [232] - 0.92 | Inv. Recall [232] - 0.92
+	Recall [233] - 0.93 | Inv. Recall [233] - 0.93
+	Recall [234] - 0.93 | Inv. Recall [234] - 0.93
+	Recall [235] - 0.93 | Inv. Recall [235] - 0.93
+	Recall [236] - 0.94 | Inv. Recall [236] - 0.94
+	Recall [237] - 0.95 | Inv. Recall [237] - 0.95
+	Recall [238] - 0.95 | Inv. Recall [238] - 0.95
+	Recall [239] - 0.96 | Inv. Recall [239] - 0.96
+	Recall [240] - 0.96 | Inv. Recall [240] - 0.96
+	Recall [241] - 0.96 | Inv. Recall [241] - 0.96
+	Recall [242] - 0.96 | Inv. Recall [242] - 0.96
+	Recall [243] - 0.96 | Inv. Recall [243] - 0.96
+	Recall [244] - 0.97 | Inv. Recall [244] - 0.97
+	Recall [245] - 0.97 | Inv. Recall [245] - 0.97
+	Recall [246] - 0.97 | Inv. Recall [246] - 0.97
+	Recall [247] - 0.97 | Inv. Recall [247] - 0.97
+	Recall [248] - 0.97 | Inv. Recall [248] - 0.97
+	Recall [249] - 0.97 | Inv. Recall [249] - 0.97
+	Recall [250] - 0.97 | Inv. Recall [250] - 0.97
+	Recall [251] - 0.97 | Inv. Recall [251] - 0.97
+	Recall [252] - 0.97 | Inv. Recall [252] - 0.97
+	Recall [253] - 0.97 | Inv. Recall [253] - 0.97
+	Recall [254] - 0.97 | Inv. Recall [254] - 0.97
+	Recall [255] - 0.97 | Inv. Recall [255] - 0.97
+	Recall [256] - 0.97 | Inv. Recall [256] - 0.97
+	Recall [257] - 0.97 | Inv. Recall [257] - 0.97
+	Recall [258] - 0.97 | Inv. Recall [258] - 0.97
+	Recall [259] - 0.97 | Inv. Recall [259] - 0.97
+	Recall [260] - 0.97 | Inv. Recall [260] - 0.97
+	Recall [261] - 0.97 | Inv. Recall [261] - 0.97
+	Recall [262] - 0.97 | Inv. Recall [262] - 0.97
+	Recall [263] - 0.97 | Inv. Recall [263] - 0.97
+	Recall [264] - 0.97 | Inv. Recall [264] - 0.97
+	Recall [265] - 0.97 | Inv. Recall [265] - 0.97
+	Recall [266] - 0.97 | Inv. Recall [266] - 0.97
+	Recall [267] - 0.97 | Inv. Recall [267] - 0.97
+	Recall [268] - 0.97 | Inv. Recall [268] - 0.97
+	Recall [269] - 0.97 | Inv. Recall [269] - 0.97
+	Recall [270] - 0.97 | Inv. Recall [270] - 0.97
+	Recall [271] - 0.97 | Inv. Recall [271] - 0.97
+	Recall [272] - 0.97 | Inv. Recall [272] - 0.97
+	Recall [273] - 0.97 | Inv. Recall [273] - 0.97
+	Recall [274] - 0.97 | Inv. Recall [274] - 0.97
+	Recall [275] - 0.97 | Inv. Recall [275] - 0.97
+	Recall [276] - 0.97 | Inv. Recall [276] - 0.97
+	Recall [277] - 0.97 | Inv. Recall [277] - 0.97
+	Recall [278] - 0.97 | Inv. Recall [278] - 0.97
+	Recall [279] - 0.97 | Inv. Recall [279] - 0.97
+	Recall [280] - 0.97 | Inv. Recall [280] - 0.97
+	Recall [281] - 0.97 | Inv. Recall [281] - 0.97
+	Recall [282] - 0.97 | Inv. Recall [282] - 0.97
+	Recall [283] - 0.97 | Inv. Recall [283] - 0.97
+	Recall [284] - 0.97 | Inv. Recall [284] - 0.97
+	Recall [285] - 0.98 | Inv. Recall [285] - 0.98
+	Recall [286] - 0.98 | Inv. Recall [286] - 0.98
+	Recall [287] - 0.98 | Inv. Recall [287] - 0.98
+	Recall [288] - 0.98 | Inv. Recall [288] - 0.98
+	Recall [289] - 0.98 | Inv. Recall [289] - 0.98
+	Recall [290] - 0.98 | Inv. Recall [290] - 0.98
+	Recall [291] - 0.98 | Inv. Recall [291] - 0.98
+	Recall [292] - 0.98 | Inv. Recall [292] - 0.98
+	Recall [293] - 0.98 | Inv. Recall [293] - 0.98
+	Recall [294] - 0.98 | Inv. Recall [294] - 0.98
+	Recall [295] - 0.98 | Inv. Recall [295] - 0.98
+	Recall [296] - 0.98 | Inv. Recall [296] - 0.98
+	Recall [297] - 0.98 | Inv. Recall [297] - 0.98
+	Recall [298] - 0.98 | Inv. Recall [298] - 0.98
+	Recall [299] - 0.99 | Inv. Recall [299] - 0.99
+	Recall [300] - 0.99 | Inv. Recall [300] - 0.99
+	Recall [301] - 0.99 | Inv. Recall [301] - 0.99
+	Recall [302] - 0.99 | Inv. Recall [302] - 0.99
+	Recall [303] - 0.99 | Inv. Recall [303] - 0.99
+	Recall [304] - 0.99 | Inv. Recall [304] - 0.99
+	Recall [305] - 0.99 | Inv. Recall [305] - 0.99
+	Recall [306] - 0.99 | Inv. Recall [306] - 0.99
+	Recall [307] - 0.99 | Inv. Recall [307] - 0.99
+	Recall [308] - 0.99 | Inv. Recall [308] - 0.99
+	Recall [309] - 0.99 | Inv. Recall [309] - 0.99
+	Recall [310] - 0.99 | Inv. Recall [310] - 0.99
+	Recall [311] - 0.99 | Inv. Recall [311] - 0.99
+	Recall [312] - 0.99 | Inv. Recall [312] - 0.99
+	Recall [313] - 0.99 | Inv. Recall [313] - 0.99
+	Recall [314] - 0.99 | Inv. Recall [314] - 0.99
+	Recall [315] - 0.99 | Inv. Recall [315] - 0.99
+	Recall [316] - 0.99 | Inv. Recall [316] - 0.99
+	Recall [317] - 0.99 | Inv. Recall [317] - 0.99
+	Recall [318] - 0.99 | Inv. Recall [318] - 0.99
+	Recall [319] - 0.99 | Inv. Recall [319] - 0.99
+	Recall [320] - 0.99 | Inv. Recall [320] - 0.99
+	Recall [321] - 0.99 | Inv. Recall [321] - 0.99
+	Recall [322] - 0.99 | Inv. Recall [322] - 0.99
+	Recall [323] - 0.99 | Inv. Recall [323] - 0.99
+	Recall [324] - 0.99 | Inv. Recall [324] - 0.99
+	Recall [325] - 0.99 | Inv. Recall [325] - 0.99
+	Recall [326] - 0.99 | Inv. Recall [326] - 0.99
+	Recall [327] - 0.99 | Inv. Recall [327] - 0.99
+	Recall [328] - 0.99 | Inv. Recall [328] - 0.99
+	Recall [329] - 0.99 | Inv. Recall [329] - 0.99
+	Recall [330] - 0.99 | Inv. Recall [330] - 0.99
+	Recall [331] - 0.99 | Inv. Recall [331] - 0.99
+	Recall [332] - 0.99 | Inv. Recall [332] - 0.99
+	Recall [333] - 0.99 | Inv. Recall [333] - 0.99
+	Recall [334] - 0.99 | Inv. Recall [334] - 0.99
+	Recall [335] - 0.99 | Inv. Recall [335] - 0.99
+	Recall [336] - 0.99 | Inv. Recall [336] - 0.99
+	Recall [337] - 0.99 | Inv. Recall [337] - 0.99
+	Recall [338] - 0.99 | Inv. Recall [338] - 0.99
+	Recall [339] - 0.99 | Inv. Recall [339] - 0.99
+	Recall [340] - 0.99 | Inv. Recall [340] - 0.99
+	Recall [341] - 0.99 | Inv. Recall [341] - 0.99
+	Recall [342] - 0.99 | Inv. Recall [342] - 0.99
+	Recall [343] - 0.99 | Inv. Recall [343] - 0.99
+	Recall [344] - 0.99 | Inv. Recall [344] - 0.99
+	Recall [345] - 0.99 | Inv. Recall [345] - 0.99
+	Recall [346] - 0.99 | Inv. Recall [346] - 0.99
+	Recall [347] - 0.99 | Inv. Recall [347] - 0.99
+	Recall [348] - 0.99 | Inv. Recall [348] - 0.99
+	Recall [349] - 0.99 | Inv. Recall [349] - 0.99
+	Recall [350] - 0.99 | Inv. Recall [350] - 0.99
+	Recall [351] - 0.99 | Inv. Recall [351] - 0.99
+	Recall [352] - 0.99 | Inv. Recall [352] - 0.99
+	Recall [353] - 0.99 | Inv. Recall [353] - 0.99
+	Recall [354] - 0.99 | Inv. Recall [354] - 0.99
+	Recall [355] - 0.99 | Inv. Recall [355] - 0.99
+	Recall [356] - 0.99 | Inv. Recall [356] - 0.99
+	Recall [357] - 0.99 | Inv. Recall [357] - 0.99
+	Recall [358] - 0.99 | Inv. Recall [358] - 0.99
+	Recall [359] - 0.99 | Inv. Recall [359] - 0.99
+	Recall [360] - 0.99 | Inv. Recall [360] - 0.99
+	Recall [361] - 0.99 | Inv. Recall [361] - 0.99
+	Recall [362] - 0.99 | Inv. Recall [362] - 0.99
+	Recall [363] - 0.99 | Inv. Recall [363] - 0.99
+	Recall [364] - 0.99 | Inv. Recall [364] - 0.99
+	Recall [365] - 0.99 | Inv. Recall [365] - 0.99
+	Recall [366] - 1 | Inv. Recall [366] - 1
+Exact : 0.03309094899999998
+Approx. : 0.013493733000000008
+

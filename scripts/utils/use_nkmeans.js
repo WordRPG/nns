@@ -1,4 +1,4 @@
-import { KMeans } from "../../src/utils/kmeans.js"; 
+import { NKMeans } from "../../src/utils/nkmeans.js";
 import * as generate from "nns-lite/src/utils/generate.js"
 import * as measures from "nns-lite/src/utils/measures.js"
 import { Point } from "../../src/utils/point.js";
@@ -13,11 +13,13 @@ console.log("\tPoint Count : " + points.length)
 
 // --- initialize k-means --- //
 console.log("Initialize K-means...")
-const indexer = new KMeans({
-    clusterCount : 1000,
-    centroidStrategy : "random", 
-    measureFn : measures.euclideanDistance,
-    verbose : true
+const indexer = new NKMeans({
+    clusterCounts       : [10, 10, 10],
+    iterCounts          : [10, 10, 10],
+    centroidStrategies  : ["random", "random", "random"],
+    measureFn           : measures.euclideanDistance,
+    verbose             : true,
+    recluster           : true
 })
 indexer.setPoints(points) 
 
@@ -25,4 +27,4 @@ indexer.setPoints(points)
 indexer.fit(10)
 
 // --- predict --- /
-indexer.predict(generate.randomPoint(DIM_COUNT))
+console.log(indexer.predictAll(generate.randomPoint(DIM_COUNT)))

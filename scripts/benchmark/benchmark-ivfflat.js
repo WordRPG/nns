@@ -22,8 +22,9 @@ const points =
 // --- build indexer 
 import fs from "fs"
 let indexer = null 
+const file = "./temp/ivf-flat.json"
 
-if(!fs.existsSync("./temp/ivf.json")) {
+if(!fs.existsSync(file)) {
     console.log("Building indexer.")
     indexer = new IVFFlat({
         clustererFn : () => new KMeans({
@@ -35,25 +36,27 @@ if(!fs.existsSync("./temp/ivf.json")) {
     })
     indexer.build(points, 5)
 } else {
-    indexer = await store.load(IVFFlat, "./temp/ivf.json")
+    indexer = await store.load(IVFFlat, file)
     indexer.points = points 
     indexer.clusterer.setPoints(points) 
 }
 
 console.log("Saving indexer...")
-await store.save(indexer, "./temp/ivf.json")
+await store.save(indexer, file)
 
 console.log("Search benchmark...")
 
 const benchmark = new SearchBenchmark({
     indexer      : indexer,
     points       : points, 
-    target       : points[50], 
-    k            : 10,
+    target       : points[567], 
+    k            : 100,
     measureFn    : measures.euclideanDistance,
     skips        : 1,
-    probeCount   : 10
+    probeCount   : 5
 }) 
+
+console.log("Max : ", Math.max(...indexer.clusterer.clusterAssignments.map(x => x.length)))
 
 benchmark.run()
 console.log(benchmark.summary())

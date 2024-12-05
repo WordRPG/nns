@@ -8,6 +8,7 @@ import * as helpers from "nns-lite/src/utils/helpers.js"
 import { Point } from "./point.js"
 import { Random } from "./random.js"
 import Chance from "chance"
+import { KDTree, VPTree, BallTree} from "nns-lite"
 
 export class KMeans 
 {
@@ -58,8 +59,9 @@ export class KMeans
      */
     initRandomCentroids() {
         const clusterCount = this.clusterCount
-        const dimCount = this.points[0].dimCount()
-        const centroids = generate.randomPoints(clusterCount, dimCount)
+        const points = this.points
+        const centroids = 
+            this.random.sample(this.points, Math.min(points.length, clusterCount))
         this.centroids = centroids
     }
 
@@ -71,6 +73,7 @@ export class KMeans
         const dimCount = this.dimCount 
         const centroids = [] 
 
+
         // --- select a point as the first centroid
         const firstPointIndex = this.random.randInt(0, this.points.length - 1)
         const firstPoint = new Point(0, this.points[firstPointIndex].value)
@@ -78,14 +81,14 @@ export class KMeans
         const visitOrder = this.points
         let visitIndex = 0
         operations.swapArray(visitOrder, firstPointIndex, visitIndex)
-
+            
         // --- find other centroids 
-        for(let i = 1; i < clusterCount; i++) {
+        for(let i = 1; i < clusterCount && i < visitOrder.length; i++) {
             if(this.verbose) {
                 console.log("---- Initializing centroid " + (i + 1) + " of " + clusterCount)
             }
             let maxDistance = -Infinity
-            let maxIndex    = -1 
+            let maxIndex    = 0 
             for(let j = visitIndex; j < visitOrder.length; j++) {
                 const activePoint = visitOrder[j]
                 const [index, distance] = 
@@ -95,6 +98,8 @@ export class KMeans
                     maxDistance = distance
                 }
             }
+
+           
             const nextCentroid = new Point(visitIndex + 1, visitOrder[maxIndex].value)
             centroids.push(nextCentroid)
             operations.swapArray(visitOrder, visitIndex, maxIndex)
@@ -128,8 +133,6 @@ export class KMeans
         for(let i = 0; i < centroids.length; i++) {
             clusterAssignments.push([])
         }
-
-        
 
         // --- assign clusters to centroids
         for(let i = 0; i < pointCount; i++) {

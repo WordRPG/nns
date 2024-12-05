@@ -42,7 +42,7 @@ export class SearchBenchmark {
         const recalls = {}
         const invRecalls = {}
 
-        let i = 0
+        let i = this.k
         while(i < expected.length) {
             const recall = 
                 this.computeRecall(expected.slice(0, i), observed, i)
